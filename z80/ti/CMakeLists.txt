@@ -42,7 +42,14 @@ add_custom_target(crt0 ALL
     COMMENT "Creating crt0"
 )
 
-add_library(z80 STATIC ${SRC} ${SRCASM})
-target_link_libraries(z80 ${CRT0_PATH})
+add_executable(z80 ${SRC})
+target_link_libraries(z80 ${CRT0_PATH} AIROS)
 add_dependencies(z80 crt0)
 
+add_custom_target(AIROS.8xu ALL
+        DEPENDS AIROS
+        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../tools/multihex 00 z80.ihx > multihex.ihx
+        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../tools/packxxu2 multihex.ihx -o AIROS.8xu -t 83p -q 0A -v 0.01 -h 255 -p 1
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Creating 8xu"
+    )

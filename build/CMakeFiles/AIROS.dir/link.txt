@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/AIROS.dir/src/main.c.o -o AIROS 

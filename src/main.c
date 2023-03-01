@@ -1,5 +1,3 @@
-// STDIO library include
-#include <stdio.h>
 #include "platform.h"
 #include "display.h"
 

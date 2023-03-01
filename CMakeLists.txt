@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-if(${TARGET_ARCH} STREQUAL "z80")
+if(TARGET_ARCH STREQUAL "z80")
     set(CMAKE_SYSTEM_NAME Generic)
     project(AIROS C)
     set(CMAKE_C_OUTPUT_EXTENSION ".rel")
@@ -40,10 +40,19 @@ if(${TARGET_ARCH} STREQUAL "z80")
     # not supported by sdcc
     set(CMAKE_C_CREATE_SHARED_LIBRARY "")
     set(CMAKE_C_CREATE_MODULE_LIBRARY "")
+elseif(TARGET_ARCH STREQUAL "intel")
+    set(CMAKE_C_COMPILER_WORKS 1)
 
-    add_subdirectory(z80)
-elseif(${TARGET_ARCH} STREQUAL "intel")
+    set(CMAKE_C_COMPILER i386-elf-gcc)
+    set(CMAKE_LINKER i386-elf-ld)
+    set(CMAKE_ASM_COMPILER i386-elf-as)
+
+    set(CMAKE_C_FLAGS "-std=gnu99 -ffreestanding -O2 -Wall -Wextra")
+
+    enable_language(ASM)
+
     project(AIROS C ASM)
+
 else()
     message(FATAL_ERROR "Could not find target arch ${TARGET_ARCH}")
 endif()
@@ -52,16 +61,10 @@ FILE(GLOB SRC src/*.c)
 include_directories(include)
 
 # add_subdirectory(intel)
-add_executable(AIROS ${SRC})
+add_library(AIROS ${SRC})
 
-if(${TARGET_ARCH} STREQUAL "z80")
-    target_link_libraries(AIROS z80)
-
-    add_custom_target(AIROS.8xu ALL
-        DEPENDS AIROS
-        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/z80/tools/multihex 00 AIROS.ihx > multihex.ihx
-        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/z80/tools/packxxu2 multihex.ihx -o AIROS.8xu -t 83p -q 0A -v 0.01 -h 255 -p 1
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Creating 8xu"
-    )
+if(TARGET_ARCH STREQUAL "z80")
+    add_subdirectory(z80)
+elseif(TARGET_ARCH STREQUAL "intel")
+    add_subdirectory(intel)
 endif()

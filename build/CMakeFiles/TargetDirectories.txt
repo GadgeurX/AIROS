@@ -1,3 +1,0 @@
-/mnt/c/Users/romai/Dev/AIROS/AIROS/build/CMakeFiles/AIROS.dir
-/mnt/c/Users/romai/Dev/AIROS/AIROS/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/romai/Dev/AIROS/AIROS/build/CMakeFiles/rebuild_cache.dir
