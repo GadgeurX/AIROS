@@ -35,4 +35,14 @@ FILE(GLOB SRC src/*.c)
 FILE(GLOB SRCASM src/*.s)
 include_directories(include)
 
+set(CRT0_PATH ${CMAKE_CURRENT_BINARY_DIR}/crt0.rel)
+
+add_custom_target(crt0 ALL
+    COMMAND sdasz80 -p -g -o ${CRT0_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/src/crt0.s
+    COMMENT "Creating crt0"
+)
+
 add_library(z80 STATIC ${SRC} ${SRCASM})
+target_link_libraries(z80 ${CRT0_PATH})
+add_dependencies(z80 crt0)
+

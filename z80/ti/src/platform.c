@@ -22,24 +22,5 @@ void ISR(void) __interrupt
 }
 
 void platform_setup() {
-     __asm
-  ld a, #0x41
-	out (#7),a
-
-	ld a, #3
-	out (#0xE), a ; What does this do? (TIOS does it)
-	xor a
-	out (#0xF), a
-	;; Stack at the top of memory.
-	ld	sp,#0
-	; Clear RAM
-	ld hl, #0x8000
-	ld (hl), #0
-	ld de, #0x8001
-	ld bc, #0x7FFF
-	ldir
-
-	ld hl, #0x8002
-	ld (hl), #0xAA
-  __endasm;
+ 
 }

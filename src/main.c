@@ -10,6 +10,7 @@ void main(void)
 
   display_setup();
   display_clear_buffer();
+  display_set_pixel(20, 20, 1);
   display_flush();
   
   while(1)

@@ -1,20 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
-
 set(CMAKE_SYSTEM_NAME Generic)
+project(AIROS C)
 
-set (CMAKE_ASM_INFORMATION_LOADED 1)
-set(CMAKE_ASM_COMPILER sdasz80)
 set(CMAKE_C_OUTPUT_EXTENSION ".rel")
-set(CMAKE_ASM_OUTPUT_EXTENSION ".rel")
-set(CMAKE_ASM_OUTPUT_EXTENSION_REPLACE 1)
-set(CMAKE_ASM_EXTENSIONS ".s")
 
 set(CMAKE_C_FLAGS_INIT "")
-set(CMAKE_ASM_FLAGS_INIT "")
 set(CMAKE_EXE_LINKER_FLAGS_INIT "")
-set(CMAKE_C_FLAGS "--std-sdcc99 -mz80 --opt-code-size --no-std-crt0 --data-loc 0000 --code-loc 100")
-set(CMAKE_ASM_FLAGS "-p -g")
-set(CMAKE_C_LINK_FLAGS "--std-sdcc99 -mz80 --opt-code-size --no-std-crt0 --data-loc 0000 --code-loc 100")
+set(CMAKE_C_FLAGS "--std-sdcc99 -mz80 --opt-code-size --no-std-crt0 --data-loc 0000 --code-loc 120")
+set(CMAKE_C_LINK_FLAGS "--std-sdcc99 -mz80 --opt-code-size --no-std-crt0 --data-loc 0000 --code-loc 120")
 set(CMAKE_STATIC_LIBRARY_PREFIX "")
 set(CMAKE_STATIC_LIBRARY_SUFFIX ".lib")
 set(CMAKE_SHARED_LIBRARY_PREFIX "")          # lib
@@ -30,7 +23,7 @@ set(CMAKE_AR sdar)
 set(CMAKE_AR_OPTIONS "-rc")
 
 set(CMAKE_C_LINKER_WRAPPER_FLAG "-Wl" ",")
-set(CMAKE_ASM_OUTPUT_EXTENSION_REPLACE 1)
+
 
 # compile a C file into an object file
 set(CMAKE_C_COMPILE_OBJECT  "<CMAKE_C_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
@@ -48,6 +41,8 @@ set(CMAKE_C_CREATE_STATIC_LIBRARY
 set(CMAKE_C_CREATE_SHARED_LIBRARY "")
 set(CMAKE_C_CREATE_MODULE_LIBRARY "")
 
+
+
 FILE(GLOB SRC src/*.c)
 include_directories(include)
 
@@ -59,8 +54,8 @@ target_link_libraries(AIROS z80)
 
 add_custom_target(AIROS.8xu ALL
     DEPENDS AIROS
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tools/multihex 00 AIROS.ihx > multihex.ihx
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tools/packxxu2 multihex.ihx -o AIROS.8xu -t 83p -q 0A -v 0.01 -h 255 -p 1
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/z80/tools/multihex 00 AIROS.ihx > multihex.ihx
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/z80/tools/packxxu2 multihex.ihx -o AIROS.8xu -t 83p -q 0A -v 0.01 -h 255 -p 1
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Creating 8xu"
 )
