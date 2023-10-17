@@ -1,5 +1,8 @@
 #include "display.h"
 #include "ports.h"
+#include "memory.h"
+
+char* video_buffer;
 
 void lcd_stall(void) __naked // This means that SDCC will not setup IX and add ret code
 { // Look at main.asm and compare functions to see what it does
@@ -20,6 +23,7 @@ void lcd_stall(void) __naked // This means that SDCC will not setup IX and add r
 
 void display_setup(void)
 {
+    video_buffer = kmalloc(768);
     // Inititalize and turn on the LCD
     Port_LCD_Command = 0x40;
     lcd_stall();
@@ -37,7 +41,7 @@ void display_clear_buffer() {
     unsigned int i = 0;
 
     while (i <= 768) {
-        ((char*)(0x8000))[i] = 0;
+        ((char*)(video_buffer))[i] = 0;
        ++i;
     }
 }
@@ -47,7 +51,7 @@ void display_set_pixel(unsigned int x, unsigned int y, unsigned int value) {
     char bit_addr = x % 8;
     bit_addr = 7 - bit_addr;
     int mask = 1 << bit_addr;
-     ((char*)(0x8000))[gbuffer_addr] = (( ((char*)(0x8000))[gbuffer_addr] & ~mask) | (value << bit_addr));
+     ((char*)(video_buffer))[gbuffer_addr] = (( ((char*)(video_buffer))[gbuffer_addr] & ~mask) | (value << bit_addr));
 }
 
 void display_flush() {
@@ -58,7 +62,7 @@ void display_flush() {
     Port_LCD_Command = 0x80;
     while (i <= 768) {
         lcd_stall();
-        Port_LCD_Data =  ((char*)(0x8000))[i];
+        Port_LCD_Data =  ((char*)(video_buffer))[i];
         if (i % 64 == 0)
             Port_LCD_Command = 0x20 + i / 64;
         ++i;
