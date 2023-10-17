@@ -1,0 +1,74 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 L
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 L
+    .__.H$L.                                                    =  0000 L
+    _Port_ASIC_Version                                          =  0015 
+    _Port_CPU_Scale                                             =  0020 
+    _Port_Clock_Control                                         =  0040 
+    _Port_Clock_Read_0                                          =  0045 
+    _Port_Clock_Read_1                                          =  0046 
+    _Port_Clock_Read_2                                          =  0047 
+    _Port_Clock_Read_3                                          =  0048 
+    _Port_Clock_Set_0                                           =  0041 
+    _Port_Clock_Set_1                                           =  0042 
+    _Port_Clock_Set_2                                           =  0043 
+    _Port_Clock_Set_3                                           =  0044 
+    _Port_Flash_Protect                                         =  0014 
+    _Port_Flash_Protection                                      =  0014 
+    _Port_Interrupt_Mask                                        =  0003 
+    _Port_Interrupt_Status                                      =  0004 
+    _Port_Keyboard                                              =  0001 
+    _Port_LCD_Command                                           =  0010 
+    _Port_LCD_Data                                              =  0011 
+    _Port_Link                                                  =  0000 
+    _Port_Mem_B1                                                =  0006 
+    _Port_Mem_B2                                                =  0007 
+    _Port_Mem_B3                                                =  0005 
+    _Port_Mem_Map                                               =  0004 
+    _Port_Status                                                =  0002 
+    _Port_Timer_1_Counter                                       =  0032 
+    _Port_Timer_1_Loop                                          =  0031 
+    _Port_Timer_1_OnOff                                         =  0030 
+    _Port_Timer_2_Counter                                       =  0035 
+    _Port_Timer_2_Loop                                          =  0034 
+    _Port_Timer_2_OnOff                                         =  0033 
+    _Port_Timer_3_Counter                                       =  0038 
+    _Port_Timer_3_Loop                                          =  0037 
+    _Port_Timer_3_OnOff                                         =  0036 
+    _Port_USB_Interrupt                                         =  0055 
+    _Port_USB_Line_Event                                        =  0056 
+    _Port_USB_Line_Event_Mask                                   =  0057 
+    _Port_USB_Mask                                              =  005B 
+    _Port_USB_Outgoing_Pipe                                     =  00A1 
+    ___sdcc_enter_ix                                               **** GX
+  0 _display_clear_buffer                                          0036 GR
+  0 _display_flush                                                 00A3 GR
+  0 _display_get_height                                            00DE GR
+  0 _display_get_with                                              00DA GR
+  0 _display_set_pixel                                             0048 GR
+  0 _display_setup                                                 000A GR
+    _kmalloc                                                       **** GX
+  0 _lcd_stall                                                     0000 GR
+  1 _video_buffer                                                  0000 GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size   E2   flags    0
+   1 _DATA                                      size    2   flags    0
+   2 _INITIALIZED                               size    0   flags    0
+   3 _DABS                                      size    0   flags    8
+   4 _HOME                                      size    0   flags    0
+   5 _GSINIT                                    size    0   flags    0
+   6 _GSFINAL                                   size    0   flags    0
+   7 _INITIALIZER                               size    0   flags    0
+   8 _CABS                                      size    0   flags    8
+

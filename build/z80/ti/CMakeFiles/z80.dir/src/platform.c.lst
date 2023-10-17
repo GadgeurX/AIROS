@@ -1,0 +1,136 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 4.0.0 #11528 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module platform
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _platform_setup
+                             12 	.globl _ISR
+                             13 ;--------------------------------------------------------
+                             14 ; special function registers
+                             15 ;--------------------------------------------------------
+                     0000    16 _Port_Link	=	0x0000
+                     0001    17 _Port_Keyboard	=	0x0001
+                     0002    18 _Port_Status	=	0x0002
+                     0003    19 _Port_Interrupt_Mask	=	0x0003
+                     0004    20 _Port_Mem_Map	=	0x0004
+                     0004    21 _Port_Interrupt_Status	=	0x0004
+                     0005    22 _Port_Mem_B3	=	0x0005
+                     0006    23 _Port_Mem_B1	=	0x0006
+                     0007    24 _Port_Mem_B2	=	0x0007
+                     0010    25 _Port_LCD_Command	=	0x0010
+                     0011    26 _Port_LCD_Data	=	0x0011
+                     0014    27 _Port_Flash_Protect	=	0x0014
+                     0015    28 _Port_ASIC_Version	=	0x0015
+                     0020    29 _Port_CPU_Scale	=	0x0020
+                     0014    30 _Port_Flash_Protection	=	0x0014
+                     0040    31 _Port_Clock_Control	=	0x0040
+                     0041    32 _Port_Clock_Set_0	=	0x0041
+                     0042    33 _Port_Clock_Set_1	=	0x0042
+                     0043    34 _Port_Clock_Set_2	=	0x0043
+                     0044    35 _Port_Clock_Set_3	=	0x0044
+                     0045    36 _Port_Clock_Read_0	=	0x0045
+                     0046    37 _Port_Clock_Read_1	=	0x0046
+                     0047    38 _Port_Clock_Read_2	=	0x0047
+                     0048    39 _Port_Clock_Read_3	=	0x0048
+                     0055    40 _Port_USB_Interrupt	=	0x0055
+                     005B    41 _Port_USB_Mask	=	0x005b
+                     0056    42 _Port_USB_Line_Event	=	0x0056
+                     0057    43 _Port_USB_Line_Event_Mask	=	0x0057
+                     00A1    44 _Port_USB_Outgoing_Pipe	=	0x00a1
+                     0030    45 _Port_Timer_1_OnOff	=	0x0030
+                     0031    46 _Port_Timer_1_Loop	=	0x0031
+                     0032    47 _Port_Timer_1_Counter	=	0x0032
+                     0033    48 _Port_Timer_2_OnOff	=	0x0033
+                     0034    49 _Port_Timer_2_Loop	=	0x0034
+                     0035    50 _Port_Timer_2_Counter	=	0x0035
+                     0036    51 _Port_Timer_3_OnOff	=	0x0036
+                     0037    52 _Port_Timer_3_Loop	=	0x0037
+                     0038    53 _Port_Timer_3_Counter	=	0x0038
+                             54 ;--------------------------------------------------------
+                             55 ; ram data
+                             56 ;--------------------------------------------------------
+                             57 	.area _DATA
+                             58 ;--------------------------------------------------------
+                             59 ; ram data
+                             60 ;--------------------------------------------------------
+                             61 	.area _INITIALIZED
+                             62 ;--------------------------------------------------------
+                             63 ; absolute external ram data
+                             64 ;--------------------------------------------------------
+                             65 	.area _DABS (ABS)
+                             66 ;--------------------------------------------------------
+                             67 ; global & static initialisations
+                             68 ;--------------------------------------------------------
+                             69 	.area _HOME
+                             70 	.area _GSINIT
+                             71 	.area _GSFINAL
+                             72 	.area _GSINIT
+                             73 ;--------------------------------------------------------
+                             74 ; Home
+                             75 ;--------------------------------------------------------
+                             76 	.area _HOME
+                             77 	.area _HOME
+                             78 ;--------------------------------------------------------
+                             79 ; code
+                             80 ;--------------------------------------------------------
+                             81 	.area _CODE
+                             82 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:4: void ISR(void) __interrupt
+                             83 ;	---------------------------------
+                             84 ; Function ISR
+                             85 ; ---------------------------------
+   0000                      86 _ISR::
+   0000 FB            [ 4]   87 	ei
+   0001 F5            [11]   88 	push	af
+   0002 C5            [11]   89 	push	bc
+   0003 D5            [11]   90 	push	de
+   0004 E5            [11]   91 	push	hl
+   0005 FD E5         [15]   92 	push	iy
+                             93 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:9: status = Port_Interrupt_Status;
+   0007 DB 04         [11]   94 	in	a, (_Port_Interrupt_Status)
+   0009 4F            [ 4]   95 	ld	c, a
+                             96 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:10: mask = Port_Interrupt_Mask;
+   000A DB 03         [11]   97 	in	a, (_Port_Interrupt_Mask)
+                             98 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:12: if(status & 0b0010)
+   000C CB 49         [ 8]   99 	bit	1, c
+   000E 28 08         [12]  100 	jr	Z,00102$
+                            101 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:14: Port_Interrupt_Mask = mask & 0b11111101;
+   0010 F5            [11]  102 	push	af
+   0011 E6 FD         [ 7]  103 	and	a, #0xfd
+   0013 D3 03         [11]  104 	out	(_Port_Interrupt_Mask), a
+   0015 F1            [10]  105 	pop	af
+                            106 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:15: Port_Interrupt_Mask = mask;
+   0016 D3 03         [11]  107 	out	(_Port_Interrupt_Mask), a
+   0018                     108 00102$:
+                            109 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:17: if( status & 0b0001)
+   0018 CB 41         [ 8]  110 	bit	0, c
+   001A 28 08         [12]  111 	jr	Z,00105$
+                            112 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:19: Port_Interrupt_Mask = mask & 0b11111110;
+   001C F5            [11]  113 	push	af
+   001D E6 FE         [ 7]  114 	and	a, #0xfe
+   001F D3 03         [11]  115 	out	(_Port_Interrupt_Mask), a
+   0021 F1            [10]  116 	pop	af
+                            117 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:20: Port_Interrupt_Mask = mask;
+   0022 D3 03         [11]  118 	out	(_Port_Interrupt_Mask), a
+   0024                     119 00105$:
+                            120 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:22: }
+   0024 FD E1         [14]  121 	pop	iy
+   0026 E1            [10]  122 	pop	hl
+   0027 D1            [10]  123 	pop	de
+   0028 C1            [10]  124 	pop	bc
+   0029 F1            [10]  125 	pop	af
+   002A ED 4D         [14]  126 	reti
+                            127 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:24: void platform_setup() {
+                            128 ;	---------------------------------
+                            129 ; Function platform_setup
+                            130 ; ---------------------------------
+   002C                     131 _platform_setup::
+                            132 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c:26: }
+   002C C9            [10]  133 	ret
+                            134 	.area _CODE
+                            135 	.area _INITIALIZER
+                            136 	.area _CABS (ABS)

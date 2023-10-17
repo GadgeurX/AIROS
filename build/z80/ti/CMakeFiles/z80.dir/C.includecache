@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/display.h
+
+../include/memory.h
+stdint.h
+-
+
+../z80/ti/include/ports.h
+
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c
+display.h
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display.h
+ports.h
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/ports.h
+memory.h
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/memory.h
+
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/memory.c
+memory.h
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/memory.h
+stdint.h
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/stdint.h
+
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/platform.c
+ports.h
+/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/ports.h
+

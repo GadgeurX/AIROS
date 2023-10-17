@@ -1,0 +1,251 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 4.0.0 #11528 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module memory
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _memcpy
+                             12 	.globl _ksbrk
+                             13 	.globl _kmalloc
+                             14 	.globl _kfree
+                             15 ;--------------------------------------------------------
+                             16 ; special function registers
+                             17 ;--------------------------------------------------------
+                             18 ;--------------------------------------------------------
+                             19 ; ram data
+                             20 ;--------------------------------------------------------
+                             21 	.area _DATA
+   0000                      22 _kmalloc_first_call_65536_8:
+   0000                      23 	.ds 1
+                             24 ;--------------------------------------------------------
+                             25 ; ram data
+                             26 ;--------------------------------------------------------
+                             27 	.area _INITIALIZED
+                             28 ;--------------------------------------------------------
+                             29 ; absolute external ram data
+                             30 ;--------------------------------------------------------
+                             31 	.area _DABS (ABS)
+                             32 ;--------------------------------------------------------
+                             33 ; global & static initialisations
+                             34 ;--------------------------------------------------------
+                             35 	.area _HOME
+                             36 	.area _GSINIT
+                             37 	.area _GSFINAL
+                             38 	.area _GSINIT
+                             39 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:18: static char first_call = 1;
+   0000 FD 21r00r00   [14]   40 	ld	iy, #_kmalloc_first_call_65536_8
+   0004 FD 36 00 01   [19]   41 	ld	0 (iy), #0x01
+                             42 ;--------------------------------------------------------
+                             43 ; Home
+                             44 ;--------------------------------------------------------
+                             45 	.area _HOME
+                             46 	.area _HOME
+                             47 ;--------------------------------------------------------
+                             48 ; code
+                             49 ;--------------------------------------------------------
+                             50 	.area _CODE
+                             51 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:6: void memcpy(char *src, char *dst, uint16_t length)
+                             52 ;	---------------------------------
+                             53 ; Function memcpy
+                             54 ; ---------------------------------
+   0000                      55 _memcpy::
+   0000 CDr00r00      [17]   56 	call	___sdcc_enter_ix
+                             57 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:9: while (i < length)
+   0003 01 00 00      [10]   58 	ld	bc, #0x0000
+   0006                      59 00101$:
+   0006 79            [ 4]   60 	ld	a, c
+   0007 DD 96 08      [19]   61 	sub	a, 8 (ix)
+   000A 78            [ 4]   62 	ld	a, b
+   000B DD 9E 09      [19]   63 	sbc	a, 9 (ix)
+   000E 30 16         [12]   64 	jr	NC,00104$
+                             65 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:11: dst[i] = src[i];
+   0010 DD 7E 06      [19]   66 	ld	a, 6 (ix)
+   0013 81            [ 4]   67 	add	a, c
+   0014 5F            [ 4]   68 	ld	e, a
+   0015 DD 7E 07      [19]   69 	ld	a, 7 (ix)
+   0018 88            [ 4]   70 	adc	a, b
+   0019 57            [ 4]   71 	ld	d, a
+   001A DD 6E 04      [19]   72 	ld	l, 4 (ix)
+   001D DD 66 05      [19]   73 	ld	h, 5 (ix)
+   0020 09            [11]   74 	add	hl, bc
+   0021 7E            [ 7]   75 	ld	a, (hl)
+   0022 12            [ 7]   76 	ld	(de), a
+                             77 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:12: ++i;
+   0023 03            [ 6]   78 	inc	bc
+   0024 18 E0         [12]   79 	jr	00101$
+   0026                      80 00104$:
+                             81 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:14: }
+   0026 DD E1         [14]   82 	pop	ix
+   0028 C9            [10]   83 	ret
+                             84 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:16: void *kmalloc(uint16_t size)
+                             85 ;	---------------------------------
+                             86 ; Function kmalloc
+                             87 ; ---------------------------------
+   0029                      88 _kmalloc::
+   0029 CDr00r00      [17]   89 	call	___sdcc_enter_ix
+   002C 21 F4 FF      [10]   90 	ld	hl, #-12
+   002F 39            [11]   91 	add	hl, sp
+   0030 F9            [ 6]   92 	ld	sp, hl
+                             93 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:19: kmemory_chunk *old_memory_chunk = NULL;
+   0031 21 00 00      [10]   94 	ld	hl, #0x0000
+   0034 E3            [19]   95 	ex	(sp), hl
+                             96 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:28: if (memory_chunk->free && memory_chunk->size == size)
+   0035 DD 7E 04      [19]   97 	ld	a, 4 (ix)
+   0038 DD 77 F6      [19]   98 	ld	-10 (ix), a
+   003B DD 7E 05      [19]   99 	ld	a, 5 (ix)
+   003E DD 77 F7      [19]  100 	ld	-9 (ix), a
+   0041 AF            [ 4]  101 	xor	a, a
+   0042 DD 77 F8      [19]  102 	ld	-8 (ix), a
+   0045 DD 77 F9      [19]  103 	ld	-7 (ix), a
+                            104 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:21: if (first_call)
+   0048 FD 21r00r00   [14]  105 	ld	iy, #_kmalloc_first_call_65536_8
+   004C FD 7E 00      [19]  106 	ld	a, 0 (iy)
+   004F B7            [ 4]  107 	or	a, a
+   0050 CArCBr00      [10]  108 	jp	Z, 00108$
+                            109 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:23: first_call = 0;
+   0053 FD 36 00 00   [19]  110 	ld	0 (iy), #0x00
+                            111 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:24: kmemory_chunk *memory_chunk = ksbrk(0);
+   0057 21 00 00      [10]  112 	ld	hl, #0x0000
+   005A E5            [11]  113 	push	hl
+   005B 21 00 00      [10]  114 	ld	hl, #0x0000
+   005E E5            [11]  115 	push	hl
+   005F CDr00r00      [17]  116 	call	_ksbrk
+   0062 F1            [10]  117 	pop	af
+   0063 F1            [10]  118 	pop	af
+   0064 4D            [ 4]  119 	ld	c, l
+   0065 44            [ 4]  120 	ld	b, h
+                            121 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:25: old_memory_chunk = memory_chunk;
+   0066 33            [ 6]  122 	inc	sp
+   0067 33            [ 6]  123 	inc	sp
+   0068 C5            [11]  124 	push	bc
+                            125 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:26: while (memory_chunk->previous_chunk != NULL)
+   0069                     126 00104$:
+   0069 0A            [ 7]  127 	ld	a, (bc)
+   006A DD 77 FA      [19]  128 	ld	-6 (ix), a
+   006D 03            [ 6]  129 	inc	bc
+   006E 0A            [ 7]  130 	ld	a, (bc)
+   006F DD 77 FB      [19]  131 	ld	-5 (ix), a
+   0072 0B            [ 6]  132 	dec	bc
+   0073 DD 7E FB      [19]  133 	ld	a, -5 (ix)
+   0076 DD B6 FA      [19]  134 	or	a, -6 (ix)
+   0079 28 50         [12]  135 	jr	Z,00108$
+                            136 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:28: if (memory_chunk->free && memory_chunk->size == size)
+   007B 21 06 00      [10]  137 	ld	hl, #0x0006
+   007E 09            [11]  138 	add	hl, bc
+   007F EB            [ 4]  139 	ex	de, hl
+   0080 1A            [ 7]  140 	ld	a, (de)
+   0081 B7            [ 4]  141 	or	a, a
+   0082 28 3F         [12]  142 	jr	Z,00102$
+   0084 69            [ 4]  143 	ld	l, c
+   0085 60            [ 4]  144 	ld	h, b
+   0086 23            [ 6]  145 	inc	hl
+   0087 23            [ 6]  146 	inc	hl
+   0088 7E            [ 7]  147 	ld	a, (hl)
+   0089 DD 77 FC      [19]  148 	ld	-4 (ix), a
+   008C 23            [ 6]  149 	inc	hl
+   008D 7E            [ 7]  150 	ld	a, (hl)
+   008E DD 77 FD      [19]  151 	ld	-3 (ix), a
+   0091 23            [ 6]  152 	inc	hl
+   0092 7E            [ 7]  153 	ld	a, (hl)
+   0093 DD 77 FE      [19]  154 	ld	-2 (ix), a
+   0096 23            [ 6]  155 	inc	hl
+   0097 7E            [ 7]  156 	ld	a, (hl)
+   0098 DD 77 FF      [19]  157 	ld	-1 (ix), a
+   009B DD 7E FC      [19]  158 	ld	a, -4 (ix)
+   009E DD 96 F6      [19]  159 	sub	a, -10 (ix)
+   00A1 20 20         [12]  160 	jr	NZ,00102$
+   00A3 DD 7E FD      [19]  161 	ld	a, -3 (ix)
+   00A6 DD 96 F7      [19]  162 	sub	a, -9 (ix)
+   00A9 20 18         [12]  163 	jr	NZ,00102$
+   00AB DD 7E FE      [19]  164 	ld	a, -2 (ix)
+   00AE DD 96 F8      [19]  165 	sub	a, -8 (ix)
+   00B1 20 10         [12]  166 	jr	NZ,00102$
+   00B3 DD 7E FF      [19]  167 	ld	a, -1 (ix)
+   00B6 DD 96 F9      [19]  168 	sub	a, -7 (ix)
+   00B9 20 08         [12]  169 	jr	NZ,00102$
+                            170 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:30: memory_chunk->free = 0;
+   00BB AF            [ 4]  171 	xor	a, a
+   00BC 12            [ 7]  172 	ld	(de), a
+                            173 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:31: return ((char *)memory_chunk) + sizeof(kmemory_chunk);
+   00BD 21 07 00      [10]  174 	ld	hl, #0x0007
+   00C0 09            [11]  175 	add	hl, bc
+   00C1 18 3E         [12]  176 	jr	00109$
+   00C3                     177 00102$:
+                            178 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:33: memory_chunk = memory_chunk->previous_chunk;
+   00C3 DD 4E FA      [19]  179 	ld	c, -6 (ix)
+   00C6 DD 46 FB      [19]  180 	ld	b, -5 (ix)
+   00C9 18 9E         [12]  181 	jr	00104$
+   00CB                     182 00108$:
+                            183 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:36: kmemory_chunk *new_memory_chunk = ksbrk(size + sizeof(kmemory_chunk));
+   00CB DD 4E 04      [19]  184 	ld	c, 4 (ix)
+   00CE DD 46 05      [19]  185 	ld	b, 5 (ix)
+   00D1 21 07 00      [10]  186 	ld	hl, #0x0007
+   00D4 09            [11]  187 	add	hl, bc
+   00D5 01 00 00      [10]  188 	ld	bc, #0x0000
+   00D8 C5            [11]  189 	push	bc
+   00D9 E5            [11]  190 	push	hl
+   00DA CDr00r00      [17]  191 	call	_ksbrk
+   00DD F1            [10]  192 	pop	af
+   00DE F1            [10]  193 	pop	af
+   00DF 4D            [ 4]  194 	ld	c, l
+   00E0 44            [ 4]  195 	ld	b, h
+                            196 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:37: new_memory_chunk->size = size;
+   00E1 59            [ 4]  197 	ld	e, c
+   00E2 50            [ 4]  198 	ld	d, b
+   00E3 13            [ 6]  199 	inc	de
+   00E4 13            [ 6]  200 	inc	de
+   00E5 C5            [11]  201 	push	bc
+   00E6 21 04 00      [10]  202 	ld	hl, #0x0004
+   00E9 39            [11]  203 	add	hl, sp
+   00EA 01 04 00      [10]  204 	ld	bc, #0x0004
+   00ED ED B0         [21]  205 	ldir
+   00EF C1            [10]  206 	pop	bc
+                            207 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:38: new_memory_chunk->free = 1;
+   00F0 21 06 00      [10]  208 	ld	hl, #0x0006
+   00F3 09            [11]  209 	add	hl, bc
+   00F4 36 01         [10]  210 	ld	(hl), #0x01
+                            211 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:39: new_memory_chunk->previous_chunk = old_memory_chunk;
+   00F6 D1            [10]  212 	pop	de
+   00F7 D5            [11]  213 	push	de
+   00F8 69            [ 4]  214 	ld	l, c
+   00F9 60            [ 4]  215 	ld	h, b
+   00FA 73            [ 7]  216 	ld	(hl), e
+   00FB 23            [ 6]  217 	inc	hl
+   00FC 72            [ 7]  218 	ld	(hl), d
+                            219 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:40: return ((char *)new_memory_chunk) + sizeof(kmemory_chunk);
+   00FD 21 07 00      [10]  220 	ld	hl, #0x0007
+   0100 09            [11]  221 	add	hl, bc
+   0101                     222 00109$:
+                            223 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:41: }
+   0101 DD F9         [10]  224 	ld	sp, ix
+   0103 DD E1         [14]  225 	pop	ix
+   0105 C9            [10]  226 	ret
+                            227 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:43: void kfree(void *ptr)
+                            228 ;	---------------------------------
+                            229 ; Function kfree
+                            230 ; ---------------------------------
+   0106                     231 _kfree::
+                            232 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:45: kmemory_chunk *memory_chunk = (kmemory_chunk *)(((char *)ptr) - sizeof(kmemory_chunk));
+   0106 D1            [10]  233 	pop	de
+   0107 C1            [10]  234 	pop	bc
+   0108 C5            [11]  235 	push	bc
+   0109 D5            [11]  236 	push	de
+   010A 79            [ 4]  237 	ld	a, c
+   010B C6 F9         [ 7]  238 	add	a, #0xf9
+   010D 4F            [ 4]  239 	ld	c, a
+   010E 78            [ 4]  240 	ld	a, b
+   010F CE FF         [ 7]  241 	adc	a, #0xff
+   0111 47            [ 4]  242 	ld	b, a
+                            243 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:46: memory_chunk->free = 1;
+   0112 21 06 00      [10]  244 	ld	hl, #0x0006
+   0115 09            [11]  245 	add	hl, bc
+   0116 36 01         [10]  246 	ld	(hl), #0x01
+                            247 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/memory.c:47: }
+   0118 C9            [10]  248 	ret
+                            249 	.area _CODE
+                            250 	.area _INITIALIZER
+                            251 	.area _CABS (ABS)

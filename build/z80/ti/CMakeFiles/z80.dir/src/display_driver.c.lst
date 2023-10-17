@@ -1,0 +1,304 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 4.0.0 #11528 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module display_driver
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _lcd_stall
+                             12 	.globl _kmalloc
+                             13 	.globl _video_buffer
+                             14 	.globl _display_setup
+                             15 	.globl _display_clear_buffer
+                             16 	.globl _display_set_pixel
+                             17 	.globl _display_flush
+                             18 	.globl _display_get_with
+                             19 	.globl _display_get_height
+                             20 ;--------------------------------------------------------
+                             21 ; special function registers
+                             22 ;--------------------------------------------------------
+                     0000    23 _Port_Link	=	0x0000
+                     0001    24 _Port_Keyboard	=	0x0001
+                     0002    25 _Port_Status	=	0x0002
+                     0003    26 _Port_Interrupt_Mask	=	0x0003
+                     0004    27 _Port_Mem_Map	=	0x0004
+                     0004    28 _Port_Interrupt_Status	=	0x0004
+                     0005    29 _Port_Mem_B3	=	0x0005
+                     0006    30 _Port_Mem_B1	=	0x0006
+                     0007    31 _Port_Mem_B2	=	0x0007
+                     0010    32 _Port_LCD_Command	=	0x0010
+                     0011    33 _Port_LCD_Data	=	0x0011
+                     0014    34 _Port_Flash_Protect	=	0x0014
+                     0015    35 _Port_ASIC_Version	=	0x0015
+                     0020    36 _Port_CPU_Scale	=	0x0020
+                     0014    37 _Port_Flash_Protection	=	0x0014
+                     0040    38 _Port_Clock_Control	=	0x0040
+                     0041    39 _Port_Clock_Set_0	=	0x0041
+                     0042    40 _Port_Clock_Set_1	=	0x0042
+                     0043    41 _Port_Clock_Set_2	=	0x0043
+                     0044    42 _Port_Clock_Set_3	=	0x0044
+                     0045    43 _Port_Clock_Read_0	=	0x0045
+                     0046    44 _Port_Clock_Read_1	=	0x0046
+                     0047    45 _Port_Clock_Read_2	=	0x0047
+                     0048    46 _Port_Clock_Read_3	=	0x0048
+                     0055    47 _Port_USB_Interrupt	=	0x0055
+                     005B    48 _Port_USB_Mask	=	0x005b
+                     0056    49 _Port_USB_Line_Event	=	0x0056
+                     0057    50 _Port_USB_Line_Event_Mask	=	0x0057
+                     00A1    51 _Port_USB_Outgoing_Pipe	=	0x00a1
+                     0030    52 _Port_Timer_1_OnOff	=	0x0030
+                     0031    53 _Port_Timer_1_Loop	=	0x0031
+                     0032    54 _Port_Timer_1_Counter	=	0x0032
+                     0033    55 _Port_Timer_2_OnOff	=	0x0033
+                     0034    56 _Port_Timer_2_Loop	=	0x0034
+                     0035    57 _Port_Timer_2_Counter	=	0x0035
+                     0036    58 _Port_Timer_3_OnOff	=	0x0036
+                     0037    59 _Port_Timer_3_Loop	=	0x0037
+                     0038    60 _Port_Timer_3_Counter	=	0x0038
+                             61 ;--------------------------------------------------------
+                             62 ; ram data
+                             63 ;--------------------------------------------------------
+                             64 	.area _DATA
+   0000                      65 _video_buffer::
+   0000                      66 	.ds 2
+                             67 ;--------------------------------------------------------
+                             68 ; ram data
+                             69 ;--------------------------------------------------------
+                             70 	.area _INITIALIZED
+                             71 ;--------------------------------------------------------
+                             72 ; absolute external ram data
+                             73 ;--------------------------------------------------------
+                             74 	.area _DABS (ABS)
+                             75 ;--------------------------------------------------------
+                             76 ; global & static initialisations
+                             77 ;--------------------------------------------------------
+                             78 	.area _HOME
+                             79 	.area _GSINIT
+                             80 	.area _GSFINAL
+                             81 	.area _GSINIT
+                             82 ;--------------------------------------------------------
+                             83 ; Home
+                             84 ;--------------------------------------------------------
+                             85 	.area _HOME
+                             86 	.area _HOME
+                             87 ;--------------------------------------------------------
+                             88 ; code
+                             89 ;--------------------------------------------------------
+                             90 	.area _CODE
+                             91 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:7: void lcd_stall(void) __naked // This means that SDCC will not setup IX and add ret code
+                             92 ;	---------------------------------
+                             93 ; Function lcd_stall
+                             94 ; ---------------------------------
+   0000                      95 _lcd_stall::
+                             96 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:21: __endasm;
+   0000 E5            [11]   97 	push	hl
+   0001 E1            [10]   98 	pop	hl
+   0002 E5            [11]   99 	push	hl
+   0003 E1            [10]  100 	pop	hl
+   0004 E5            [11]  101 	push	hl
+   0005 E1            [10]  102 	pop	hl
+   0006 E5            [11]  103 	push	hl
+   0007 E1            [10]  104 	pop	hl
+   0008 00            [ 4]  105 	nop
+                            106 ;	manual ret is needed with __naked
+   0009 C9            [10]  107 	ret
+                            108 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:22: }
+                            109 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:24: void display_setup(void)
+                            110 ;	---------------------------------
+                            111 ; Function display_setup
+                            112 ; ---------------------------------
+   000A                     113 _display_setup::
+                            114 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:26: video_buffer = kmalloc(768);
+   000A 21 00 03      [10]  115 	ld	hl, #0x0300
+   000D E5            [11]  116 	push	hl
+   000E CDr00r00      [17]  117 	call	_kmalloc
+   0011 F1            [10]  118 	pop	af
+   0012 22r00r00      [16]  119 	ld	(_video_buffer), hl
+                            120 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:28: Port_LCD_Command = 0x40;
+   0015 3E 40         [ 7]  121 	ld	a, #0x40
+   0017 D3 10         [11]  122 	out	(_Port_LCD_Command), a
+                            123 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:29: lcd_stall();
+   0019 CDr00r00      [17]  124 	call	_lcd_stall
+                            125 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:30: Port_LCD_Command = 0x05;
+   001C 3E 05         [ 7]  126 	ld	a, #0x05
+   001E D3 10         [11]  127 	out	(_Port_LCD_Command), a
+                            128 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:31: lcd_stall();
+   0020 CDr00r00      [17]  129 	call	_lcd_stall
+                            130 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:32: Port_LCD_Command = 0x01;
+   0023 3E 01         [ 7]  131 	ld	a, #0x01
+   0025 D3 10         [11]  132 	out	(_Port_LCD_Command), a
+                            133 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:33: lcd_stall();
+   0027 CDr00r00      [17]  134 	call	_lcd_stall
+                            135 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:34: Port_LCD_Command = 0x03;
+   002A 3E 03         [ 7]  136 	ld	a, #0x03
+   002C D3 10         [11]  137 	out	(_Port_LCD_Command), a
+                            138 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:35: lcd_stall();
+   002E CDr00r00      [17]  139 	call	_lcd_stall
+                            140 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:36: Port_LCD_Command = 0xF0;
+   0031 3E F0         [ 7]  141 	ld	a, #0xf0
+   0033 D3 10         [11]  142 	out	(_Port_LCD_Command), a
+                            143 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:37: return;
+                            144 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:38: }
+   0035 C9            [10]  145 	ret
+                            146 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:40: void display_clear_buffer() {
+                            147 ;	---------------------------------
+                            148 ; Function display_clear_buffer
+                            149 ; ---------------------------------
+   0036                     150 _display_clear_buffer::
+                            151 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:43: while (i <= 768) {
+   0036 01 00 00      [10]  152 	ld	bc, #0x0000
+   0039                     153 00101$:
+   0039 AF            [ 4]  154 	xor	a, a
+   003A B9            [ 4]  155 	cp	a, c
+   003B 3E 03         [ 7]  156 	ld	a, #0x03
+   003D 98            [ 4]  157 	sbc	a, b
+   003E D8            [11]  158 	ret	C
+                            159 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:44: ((char*)(video_buffer))[i] = 0;
+   003F 2Ar00r00      [16]  160 	ld	hl, (_video_buffer)
+   0042 09            [11]  161 	add	hl, bc
+   0043 36 00         [10]  162 	ld	(hl), #0x00
+                            163 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:45: ++i;
+   0045 03            [ 6]  164 	inc	bc
+                            165 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:47: }
+   0046 18 F1         [12]  166 	jr	00101$
+                            167 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:49: void display_set_pixel(unsigned int x, unsigned int y, unsigned int value) {
+                            168 ;	---------------------------------
+                            169 ; Function display_set_pixel
+                            170 ; ---------------------------------
+   0048                     171 _display_set_pixel::
+   0048 CDr00r00      [17]  172 	call	___sdcc_enter_ix
+   004B F5            [11]  173 	push	af
+                            174 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:50: unsigned int gbuffer_addr = y + (((x / 8)) * 64);
+   004C DD 6E 04      [19]  175 	ld	l, 4 (ix)
+   004F DD 66 05      [19]  176 	ld	h, 5 (ix)
+   0052 06 03         [ 7]  177 	ld	b, #0x03
+   0054                     178 00103$:
+   0054 CB 3C         [ 8]  179 	srl	h
+   0056 CB 1D         [ 8]  180 	rr	l
+   0058 10 FA         [13]  181 	djnz	00103$
+   005A 29            [11]  182 	add	hl, hl
+   005B 29            [11]  183 	add	hl, hl
+   005C 29            [11]  184 	add	hl, hl
+   005D 29            [11]  185 	add	hl, hl
+   005E 29            [11]  186 	add	hl, hl
+   005F 29            [11]  187 	add	hl, hl
+   0060 4D            [ 4]  188 	ld	c, l
+   0061 44            [ 4]  189 	ld	b, h
+   0062 DD 6E 06      [19]  190 	ld	l, 6 (ix)
+   0065 DD 66 07      [19]  191 	ld	h, 7 (ix)
+   0068 09            [11]  192 	add	hl, bc
+   0069 EB            [ 4]  193 	ex	de,hl
+                            194 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:51: char bit_addr = x % 8;
+   006A DD 7E 04      [19]  195 	ld	a, 4 (ix)
+   006D E6 07         [ 7]  196 	and	a, #0x07
+   006F 4F            [ 4]  197 	ld	c, a
+                            198 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:52: bit_addr = 7 - bit_addr;
+   0070 3E 07         [ 7]  199 	ld	a, #0x07
+   0072 91            [ 4]  200 	sub	a, c
+                            201 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:53: int mask = 1 << bit_addr;
+   0073 DD 77 FE      [19]  202 	ld	-2 (ix), a
+   0076 47            [ 4]  203 	ld	b, a
+   0077 DD 36 FF 01   [19]  204 	ld	-1 (ix), #0x01
+   007B 04            [ 4]  205 	inc	b
+   007C 18 04         [12]  206 	jr	00105$
+   007E                     207 00104$:
+   007E DD CB FF 26   [23]  208 	sla	-1 (ix)
+   0082                     209 00105$:
+   0082 10 FA         [13]  210 	djnz	00104$
+                            211 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:54: ((char*)(video_buffer))[gbuffer_addr] = (( ((char*)(video_buffer))[gbuffer_addr] & ~mask) | (value << bit_addr));
+   0084 2Ar00r00      [16]  212 	ld	hl, (_video_buffer)
+   0087 19            [11]  213 	add	hl, de
+   0088 4E            [ 7]  214 	ld	c, (hl)
+   0089 DD 7E FF      [19]  215 	ld	a, -1 (ix)
+   008C 2F            [ 4]  216 	cpl
+   008D A1            [ 4]  217 	and	a, c
+   008E 4F            [ 4]  218 	ld	c, a
+   008F DD 5E 08      [19]  219 	ld	e, 8 (ix)
+   0092 DD 46 FE      [19]  220 	ld	b, -2 (ix)
+   0095 04            [ 4]  221 	inc	b
+   0096 18 02         [12]  222 	jr	00107$
+   0098                     223 00106$:
+   0098 CB 23         [ 8]  224 	sla	e
+   009A                     225 00107$:
+   009A 10 FC         [13]  226 	djnz	00106$
+   009C 7B            [ 4]  227 	ld	a, e
+   009D B1            [ 4]  228 	or	a, c
+   009E 77            [ 7]  229 	ld	(hl), a
+                            230 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:55: }
+   009F F1            [10]  231 	pop	af
+   00A0 DD E1         [14]  232 	pop	ix
+   00A2 C9            [10]  233 	ret
+                            234 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:57: void display_flush() {
+                            235 ;	---------------------------------
+                            236 ; Function display_flush
+                            237 ; ---------------------------------
+   00A3                     238 _display_flush::
+                            239 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:60: Port_LCD_Command = 0x20;
+   00A3 3E 20         [ 7]  240 	ld	a, #0x20
+   00A5 D3 10         [11]  241 	out	(_Port_LCD_Command), a
+                            242 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:61: lcd_stall();
+   00A7 CDr00r00      [17]  243 	call	_lcd_stall
+                            244 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:62: Port_LCD_Command = 0x80;
+   00AA 3E 80         [ 7]  245 	ld	a, #0x80
+   00AC D3 10         [11]  246 	out	(_Port_LCD_Command), a
+                            247 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:63: while (i <= 768) {
+   00AE 11 00 00      [10]  248 	ld	de, #0x0000
+   00B1                     249 00103$:
+   00B1 AF            [ 4]  250 	xor	a, a
+   00B2 BB            [ 4]  251 	cp	a, e
+   00B3 3E 03         [ 7]  252 	ld	a, #0x03
+   00B5 9A            [ 4]  253 	sbc	a, d
+   00B6 D8            [11]  254 	ret	C
+                            255 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:64: lcd_stall();
+   00B7 D5            [11]  256 	push	de
+   00B8 CDr00r00      [17]  257 	call	_lcd_stall
+   00BB D1            [10]  258 	pop	de
+                            259 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:65: Port_LCD_Data =  ((char*)(video_buffer))[i];
+   00BC 2Ar00r00      [16]  260 	ld	hl, (_video_buffer)
+   00BF 19            [11]  261 	add	hl, de
+   00C0 7E            [ 7]  262 	ld	a, (hl)
+   00C1 D3 11         [11]  263 	out	(_Port_LCD_Data), a
+                            264 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:66: if (i % 64 == 0)
+   00C3 7B            [ 4]  265 	ld	a, e
+   00C4 E6 3F         [ 7]  266 	and	a, #0x3f
+   00C6 20 0F         [12]  267 	jr	NZ,00102$
+                            268 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:67: Port_LCD_Command = 0x20 + i / 64;
+   00C8 6B            [ 4]  269 	ld	l, e
+   00C9 62            [ 4]  270 	ld	h, d
+   00CA 06 06         [ 7]  271 	ld	b, #0x06
+   00CC                     272 00126$:
+   00CC CB 3C         [ 8]  273 	srl	h
+   00CE CB 1D         [ 8]  274 	rr	l
+   00D0 10 FA         [13]  275 	djnz	00126$
+   00D2 7D            [ 4]  276 	ld	a, l
+   00D3 C6 20         [ 7]  277 	add	a, #0x20
+   00D5 D3 10         [11]  278 	out	(_Port_LCD_Command), a
+   00D7                     279 00102$:
+                            280 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:68: ++i;
+   00D7 13            [ 6]  281 	inc	de
+                            282 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:70: }
+   00D8 18 D7         [12]  283 	jr	00103$
+                            284 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:72: int display_get_with() {
+                            285 ;	---------------------------------
+                            286 ; Function display_get_with
+                            287 ; ---------------------------------
+   00DA                     288 _display_get_with::
+                            289 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:73: return 96;
+   00DA 21 60 00      [10]  290 	ld	hl, #0x0060
+                            291 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:74: }
+   00DD C9            [10]  292 	ret
+                            293 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:76: int display_get_height() {
+                            294 ;	---------------------------------
+                            295 ; Function display_get_height
+                            296 ; ---------------------------------
+   00DE                     297 _display_get_height::
+                            298 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:77: return 64;
+   00DE 21 40 00      [10]  299 	ld	hl, #0x0040
+                            300 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/z80/ti/src/display_driver.c:78: }
+   00E1 C9            [10]  301 	ret
+                            302 	.area _CODE
+                            303 	.area _INITIALIZER
+                            304 	.area _CABS (ABS)

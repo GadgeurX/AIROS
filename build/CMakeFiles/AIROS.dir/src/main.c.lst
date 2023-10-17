@@ -1,0 +1,78 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 4.0.0 #11528 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module main
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _main
+                             12 	.globl _display_clear_buffer
+                             13 	.globl _display_flush
+                             14 	.globl _display_set_pixel
+                             15 	.globl _display_setup
+                             16 	.globl _platform_setup
+                             17 ;--------------------------------------------------------
+                             18 ; special function registers
+                             19 ;--------------------------------------------------------
+                             20 ;--------------------------------------------------------
+                             21 ; ram data
+                             22 ;--------------------------------------------------------
+                             23 	.area _DATA
+                             24 ;--------------------------------------------------------
+                             25 ; ram data
+                             26 ;--------------------------------------------------------
+                             27 	.area _INITIALIZED
+                             28 ;--------------------------------------------------------
+                             29 ; absolute external ram data
+                             30 ;--------------------------------------------------------
+                             31 	.area _DABS (ABS)
+                             32 ;--------------------------------------------------------
+                             33 ; global & static initialisations
+                             34 ;--------------------------------------------------------
+                             35 	.area _HOME
+                             36 	.area _GSINIT
+                             37 	.area _GSFINAL
+                             38 	.area _GSINIT
+                             39 ;--------------------------------------------------------
+                             40 ; Home
+                             41 ;--------------------------------------------------------
+                             42 	.area _HOME
+                             43 	.area _HOME
+                             44 ;--------------------------------------------------------
+                             45 ; code
+                             46 ;--------------------------------------------------------
+                             47 	.area _CODE
+                             48 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/main.c:4: void main(void)
+                             49 ;	---------------------------------
+                             50 ; Function main
+                             51 ; ---------------------------------
+   0000                      52 _main::
+                             53 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/main.c:7: platform_setup();
+   0000 CDr00r00      [17]   54 	call	_platform_setup
+                             55 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/main.c:9: display_setup();
+   0003 CDr00r00      [17]   56 	call	_display_setup
+                             57 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/main.c:10: display_clear_buffer();
+   0006 CDr00r00      [17]   58 	call	_display_clear_buffer
+                             59 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/main.c:11: display_set_pixel(20, 20, 1);
+   0009 21 01 00      [10]   60 	ld	hl, #0x0001
+   000C E5            [11]   61 	push	hl
+   000D 2E 14         [ 7]   62 	ld	l, #0x14
+   000F E5            [11]   63 	push	hl
+   0010 2E 14         [ 7]   64 	ld	l, #0x14
+   0012 E5            [11]   65 	push	hl
+   0013 CDr00r00      [17]   66 	call	_display_set_pixel
+   0016 F1            [10]   67 	pop	af
+   0017 F1            [10]   68 	pop	af
+   0018 F1            [10]   69 	pop	af
+                             70 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/main.c:12: display_flush();
+   0019 CDr00r00      [17]   71 	call	_display_flush
+                             72 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/main.c:14: while(1)
+   001C                      73 00102$:
+                             74 ;/mnt/c/Users/romai/Dev/AIROS/AIROS/src/main.c:18: }
+   001C 18 FE         [12]   75 	jr	00102$
+                             76 	.area _CODE
+                             77 	.area _INITIALIZER
+                             78 	.area _CABS (ABS)
