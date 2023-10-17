@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-2d7946a5af6a5da38cba397d396880af z80/ti/CMakeFiles/AIROS.8xu
-ae181e81cf3c666997061eff6f751f2c z80/ti/CMakeFiles/crt0

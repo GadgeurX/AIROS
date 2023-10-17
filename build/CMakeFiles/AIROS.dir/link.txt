@@ -1,2 +1,0 @@
-"/usr/bin/cmake" -E remove AIROS.lib
-sdar -rc AIROS.lib CMakeFiles/AIROS.dir/src/main.c.rel CMakeFiles/AIROS.dir/src/memory.c.rel 
