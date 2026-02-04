@@ -6,7 +6,7 @@ include_directories(include)
 set(CMAKE_C_LINK_FLAGS "-T ${CMAKE_CURRENT_SOURCE_DIR}/linker.ld -O2 -nostdlib -ffreestanding")
 
 add_executable(intel ${SRC} ${SRCASM})
-target_link_libraries(intel AIROS)
+target_link_libraries(intel -Wl,--whole-archive AIROS -Wl,--no-whole-archive)
 
 add_custom_target(AIROS.iso ALL
         DEPENDS intel

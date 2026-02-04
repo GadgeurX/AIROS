@@ -4,7 +4,7 @@ static struct vbe_mode_info*  vbe_info;
 
 void display_setup(void)
 {
-   vbe_info = multiboot_struct->vbe_mode_info;
+   vbe_info = (struct vbe_mode_info*)multiboot_struct->vbe_mode_info;
 }
 
 void display_clear_buffer() {
@@ -29,7 +29,7 @@ void display_flush() {
     
 }
 
-int display_get_with() {
+int display_get_width() {
     return vbe_info->width;
 }
 

@@ -42,8 +42,15 @@ add_custom_target(crt0 ALL
     COMMENT "Creating crt0"
 )
 
-add_executable(z80 ${SRC})
-target_link_libraries(z80 ${CRT0_PATH} AIROS)
+set(LCD_STALL_PATH ${CMAKE_CURRENT_BINARY_DIR}/lcd_stall.rel)
+add_custom_command(OUTPUT ${LCD_STALL_PATH}
+    COMMAND sdasz80 -p -g -o ${LCD_STALL_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/src/lcd_stall.s
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/lcd_stall.s
+    COMMENT "Building lcd_stall"
+)
+
+add_executable(z80 ${SRC} ${LCD_STALL_PATH})
+target_link_libraries(z80 ${CRT0_PATH} AIROS ${LCD_STALL_PATH})
 add_dependencies(z80 crt0)
 
 add_custom_target(AIROS.8xu ALL
@@ -53,3 +60,15 @@ add_custom_target(AIROS.8xu ALL
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Creating 8xu"
     )
+
+set(TOOLS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../tools)
+set(BASE_ROM   ${TOOLS_DIR}/ti83p.rom)
+
+add_custom_target(AIROS.rom ALL
+  DEPENDS z80
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${BASE_ROM} AIROS.rom
+  COMMAND /bin/sh -c "${TOOLS_DIR}/multihex 00 z80.ihx > multihex.ihx"
+  COMMAND ${TOOLS_DIR}/rompatch AIROS.rom -s multihex.ihx
+  COMMENT "Creating patched ROM (in-place) for TilEm"
+)

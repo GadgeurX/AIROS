@@ -1,8 +1,7 @@
-#include "platform.h"
 #include "display.h"
+#include "platform.h"
 
-void main(void)
-{
+void main(void) {
 
   platform_setup();
 
@@ -10,9 +9,7 @@ void main(void)
   display_clear_buffer();
   display_set_pixel(20, 20, 1);
   display_flush();
-  
-  while(1)
-  {
-    
+
+  while (1) {
   }
 }

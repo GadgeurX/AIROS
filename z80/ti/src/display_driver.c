@@ -1,78 +1,62 @@
 #include "display.h"
-#include "ports.h"
 #include "memory.h"
+#include "ports.h"
 
-char* video_buffer;
+char *video_buffer;
 
-void lcd_stall(void) __naked // This means that SDCC will not setup IX and add ret code
-{ // Look at main.asm and compare functions to see what it does
-	__asm
-		push hl
-		pop hl
-		push hl
-		pop hl
-		push hl
-		pop hl
-		push hl
-		pop hl
-		nop
-		; manual ret is needed with __naked
-		ret
-	__endasm;
-}
+extern void lcd_stall(void);
 
-void display_setup(void)
-{
-    video_buffer = kmalloc(768);
-    // Inititalize and turn on the LCD
-    Port_LCD_Command = 0x40;
-    lcd_stall();
-    Port_LCD_Command = 0x05;
-    lcd_stall();
-    Port_LCD_Command = 0x01;
-    lcd_stall();
-    Port_LCD_Command = 0x03;
-    lcd_stall();
-    Port_LCD_Command = 0xF0;
-    return;
+void display_setup(void) {
+  video_buffer = kmalloc(768);
+  // Inititalize and turn on the LCD
+  Port_LCD_Command = 0x40;
+  lcd_stall();
+  Port_LCD_Command = 0x05;
+  lcd_stall();
+  Port_LCD_Command = 0x01;
+  lcd_stall();
+  Port_LCD_Command = 0x03;
+  lcd_stall();
+  Port_LCD_Command = 0xF0;
+  return;
 }
 
 void display_clear_buffer() {
-    unsigned int i = 0;
+  unsigned int i = 0;
 
-    while (i <= 768) {
-        ((char*)(video_buffer))[i] = 0;
-       ++i;
-    }
+  while (i < 768) {
+    ((char *)(video_buffer))[i] = 0;
+    ++i;
+  }
 }
 
 void display_set_pixel(unsigned int x, unsigned int y, unsigned int value) {
-    unsigned int gbuffer_addr = y + (((x / 8)) * 64);
-    char bit_addr = x % 8;
-    bit_addr = 7 - bit_addr;
-    int mask = 1 << bit_addr;
-     ((char*)(video_buffer))[gbuffer_addr] = (( ((char*)(video_buffer))[gbuffer_addr] & ~mask) | (value << bit_addr));
+  unsigned int gbuffer_addr = y + (((x / 8)) * 64);
+  char bit_addr = x % 8;
+  bit_addr = 7 - bit_addr;
+  int mask = 1 << bit_addr;
+  ((char *)(video_buffer))[gbuffer_addr] =
+      ((((char *)(video_buffer))[gbuffer_addr] & ~mask) | (value << bit_addr));
 }
 
 void display_flush() {
-    unsigned int i = 0;
+  unsigned int i = 0;
+  unsigned char col = 0;
 
-    Port_LCD_Command = 0x20;
-    lcd_stall();
-    Port_LCD_Command = 0x80;
-    while (i <= 768) {
-        lcd_stall();
-        Port_LCD_Data =  ((char*)(video_buffer))[i];
-        if (i % 64 == 0)
-            Port_LCD_Command = 0x20 + i / 64;
-        ++i;
+  while (i < 768) {
+    if ((i & 63) == 0) {
+      Port_LCD_Command = 0x80; // Reset row to 0
+      lcd_stall();
+      Port_LCD_Command = 0x20 + col; // Set column
+      lcd_stall();
+      col++;
     }
+    Port_LCD_Data = ((char *)(video_buffer))[i];
+    lcd_stall();
+    ++i;
+  }
 }
 
-int display_get_with() {
-    return 96;
-}
+int display_get_width() { return 96; }
 
-int display_get_height() {
-    return 64;
-}
+int display_get_height() { return 64; }
